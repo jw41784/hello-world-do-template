@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wine Rater - Design Mockup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            wine: {
+              50: '#fdf8f8',
+              100: '#f7e7ea',
+              200: '#efd0d6',
+              300: '#e2adb7',
+              400: '#d48292',
+              500: '#c95d70',
+              600: '#b84457',
+              700: '#9c3345',
+              800: '#7a2937',
+              900: '#611f2b',
+              950: '#3d1019',
+            },
+            gold: {
+              50: '#fbf8ea',
+              100: '#f5edc6',
+              200: '#ebd98d',
+              300: '#e2c257',
+              400: '#d9ab31',
+              500: '#ca8f20',
+              600: '#b37018',
+              700: '#945318',
+              800: '#7a4119',
+              900: '#663617',
+              950: '#3d1d0c',
+            },
+          },
+          fontFamily: {
+            'cormorant': ['"Cormorant Garamond"', 'serif'],
+            'outfit': ['Outfit', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: #fefcfa;
+      color: #292524;
+      min-height: 100vh;
+      letter-spacing: 0.01em;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.01em;
+    }
+    .btn-primary {
+      @apply flex items-center justify-center gap-2 bg-wine-600 hover:bg-wine-700 text-white py-2.5 px-6 rounded-lg transition-all font-medium text-sm shadow-sm hover:shadow-md active:translate-y-0.5 hover:scale-[1.03];
+    }
+    .btn-secondary {
+      @apply flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 py-2.5 px-6 rounded-lg transition-all font-medium text-sm border border-gray-200 shadow-sm hover:shadow-md active:translate-y-0.5 hover:scale-[1.02];
+    }
+    .btn-danger {
+      @apply flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white py-2.5 px-6 rounded-lg transition-all font-medium text-sm shadow-sm hover:shadow-md active:translate-y-0.5 hover:scale-[1.02];
+    }
+    .card {
+      @apply bg-white rounded-xl border border-gray-100 shadow-md p-6 transition-all hover:shadow-lg hover:scale-[1.01] duration-300;
+    }
+    .card-header {
+      @apply border-b border-gray-100 pb-4 mb-4;
+    }
+    .rating-star-filled {
+      @apply text-amber-500 text-xl transition-all duration-300 hover:scale-110 hover:rotate-12;
+    }
+    .rating-star-empty {
+      @apply text-gray-300 text-xl transition-all duration-300 hover:scale-110 hover:rotate-12;
+    }
+    .page-container {
+      @apply max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8;
+    }
+    .nav-link {
+      @apply flex items-center text-wine-600 hover:text-wine-800 font-medium transition-colors;
+    }
+  </style>
+</head>
+<body>
+  <div class="text-center py-8 bg-wine-50">
+    <h1 class="font-bold text-3xl text-wine-800 italic">Wine<span class="text-wine-600">Rater</span></h1>
+    <p class="text-gray-600 mt-2">A playful and elegant design system</p>
+  </div>
+
+  <div class="page-container">
+    <!-- Typography -->
+    <section class="mb-16" id="typography">
+      <h2 class="text-3xl font-bold font-cormorant text-wine-800 mb-6 pb-2 border-b border-gray-200">Typography</h2>
+      
+      <div class="mb-8">
+        <h3 class="text-xl font-semibold font-cormorant mb-4">Headings</h3>
+        <div class="space-y-6">
+          <div>
+            <h1 class="text-5xl font-bold font-cormorant text-gray-900 italic">Heading 1</h1>
+            <p class="text-sm text-gray-500 mt-1">font-cormorant text-5xl font-bold italic</p>
+          </div>
+          <div>
+            <h2 class="text-4xl font-bold font-cormorant text-gray-900">Heading 2</h2>
+            <p class="text-sm text-gray-500 mt-1">font-cormorant text-4xl font-bold</p>
+          </div>
+          <div>
+            <h3 class="text-3xl font-bold font-cormorant text-gray-900">Heading 3</h3>
+            <p class="text-sm text-gray-500 mt-1">font-cormorant text-3xl font-bold</p>
+          </div>
+          <div>
+            <h4 class="text-2xl font-semibold font-cormorant text-gray-900 italic">Heading 4</h4>
+            <p class="text-sm text-gray-500 mt-1">font-cormorant text-2xl font-semibold italic</p>
+          </div>
+          <div>
+            <h5 class="text-xl font-semibold font-cormorant text-gray-900">Heading 5</h5>
+            <p class="text-sm text-gray-500 mt-1">font-cormorant text-xl font-semibold</p>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="text-xl font-semibold font-cormorant mb-4">Body Text</h3>
+        <div class="space-y-6">
+          <div>
+            <p class="text-xl font-outfit leading-relaxed text-gray-800">Large paragraph text for important sections, featuring the elegant Outfit font with comfortable spacing.</p>
+            <p class="text-sm text-gray-500 mt-1">font-outfit text-xl leading-relaxed</p>
+          </div>
+          <div>
+            <p class="text-base font-outfit text-gray-700 leading-relaxed">Regular paragraph text for general content. The Outfit font provides excellent readability while maintaining a playful, modern character that pairs beautifully with our elegant headings.</p>
+            <p class="text-sm text-gray-500 mt-1">font-outfit text-base leading-relaxed</p>
+          </div>
+          <div>
+            <p class="text-sm font-outfit text-gray-600 leading-relaxed tracking-wide">Smaller text with slightly wider tracking for improved legibility in less important information contexts.</p>
+            <p class="text-sm text-gray-500 mt-1">font-outfit text-sm leading-relaxed tracking-wide</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Colors -->
+    <section class="mb-16" id="colors">
+      <h2 class="text-3xl font-bold font-cormorant text-wine-800 mb-6 pb-2 border-b border-gray-200">Color Palette</h2>
+      
+      <div class="mb-8">
+        <h3 class="text-xl font-semibold font-cormorant mb-4">Primary Colors (Wine)</h3>
+        <div class="grid grid-cols-5 gap-4">
+          <div>
+            <div class="h-20 rounded-md bg-wine-50 flex items-end p-2">
+              <span class="text-xs font-mono text-wine-900">wine-50</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-wine-100 flex items-end p-2">
+              <span class="text-xs font-mono text-wine-900">wine-100</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-wine-200 flex items-end p-2">
+              <span class="text-xs font-mono text-wine-900">wine-200</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-wine-300 flex items-end p-2">
+              <span class="text-xs font-mono text-wine-900">wine-300</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-wine-400 flex items-end p-2">
+              <span class="text-xs font-mono text-wine-900">wine-400</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-wine-500 flex items-end p-2">
+              <span class="text-xs font-mono text-white">wine-500</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-wine-600 flex items-end p-2">
+              <span class="text-xs font-mono text-white">wine-600</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-wine-700 flex items-end p-2">
+              <span class="text-xs font-mono text-white">wine-700</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-wine-800 flex items-end p-2">
+              <span class="text-xs font-mono text-white">wine-800</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-wine-900 flex items-end p-2">
+              <span class="text-xs font-mono text-white">wine-900</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mb-8">
+        <h3 class="text-xl font-semibold font-cormorant mb-4">Accent Colors (Gold)</h3>
+        <div class="grid grid-cols-5 gap-4">
+          <div>
+            <div class="h-20 rounded-md bg-gold-50 flex items-end p-2">
+              <span class="text-xs font-mono text-gold-900">gold-50</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-gold-100 flex items-end p-2">
+              <span class="text-xs font-mono text-gold-900">gold-100</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-gold-200 flex items-end p-2">
+              <span class="text-xs font-mono text-gold-900">gold-200</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-gold-300 flex items-end p-2">
+              <span class="text-xs font-mono text-gold-900">gold-300</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-gold-400 flex items-end p-2">
+              <span class="text-xs font-mono text-gold-900">gold-400</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="text-xl font-semibold font-cormorant mb-4">Neutral Colors</h3>
+        <div class="grid grid-cols-5 gap-4">
+          <div>
+            <div class="h-20 rounded-md bg-gray-50 flex items-end p-2">
+              <span class="text-xs font-mono text-gray-900">gray-50</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-gray-100 flex items-end p-2">
+              <span class="text-xs font-mono text-gray-900">gray-100</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-gray-200 flex items-end p-2">
+              <span class="text-xs font-mono text-gray-900">gray-200</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-gray-300 flex items-end p-2">
+              <span class="text-xs font-mono text-gray-900">gray-300</span>
+            </div>
+          </div>
+          <div>
+            <div class="h-20 rounded-md bg-gray-400 flex items-end p-2">
+              <span class="text-xs font-mono text-gray-900">gray-400</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Buttons -->
+    <section class="mb-16" id="buttons">
+      <h2 class="text-3xl font-bold font-cormorant text-wine-800 mb-6 pb-2 border-b border-gray-200">Buttons</h2>
+      
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-xl font-semibold font-cormorant mb-4">Primary Buttons</h3>
+          <div class="flex flex-wrap gap-4">
+            <button class="bg-wine-600 hover:bg-wine-700 text-white py-2.5 px-5 rounded-md transition-all font-medium text-sm shadow-sm hover:shadow-md active:translate-y-0.5">
+              Primary Button
+            </button>
+            <button class="bg-wine-600 hover:bg-wine-700 text-white py-2.5 px-5 rounded-md transition-all font-medium text-sm shadow-sm hover:shadow-md active:translate-y-0.5 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              </svg>
+              With Icon
+            </button>
+            <button class="bg-wine-600 hover:bg-wine-700 text-white py-3 px-6 rounded-md transition-all font-medium text-base shadow-sm hover:shadow-md active:translate-y-0.5">
+              Large Button
+            </button>
+            <button disabled class="bg-wine-600 opacity-50 cursor-not-allowed text-white py-2.5 px-5 rounded-md font-medium text-sm">
+              Disabled
+            </button>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-semibold font-cormorant mb-4">Secondary Buttons</h3>
+          <div class="flex flex-wrap gap-4">
+            <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 py-2.5 px-5 rounded-md transition-all font-medium text-sm border border-gray-200 shadow-sm hover:shadow-md active:translate-y-0.5">
+              Secondary Button
+            </button>
+            <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 py-2.5 px-5 rounded-md transition-all font-medium text-sm border border-gray-200 shadow-sm hover:shadow-md active:translate-y-0.5 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+              </svg>
+              With Icon
+            </button>
+            <button disabled class="bg-gray-100 opacity-50 cursor-not-allowed text-gray-400 py-2.5 px-5 rounded-md font-medium text-sm border border-gray-200">
+              Disabled
+            </button>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-semibold font-cormorant mb-4">Danger Buttons</h3>
+          <div class="flex flex-wrap gap-4">
+            <button class="bg-red-600 hover:bg-red-700 text-white py-2.5 px-5 rounded-md transition-all font-medium text-sm shadow-sm hover:shadow-md active:translate-y-0.5">
+              Danger Button
+            </button>
+            <button class="bg-red-600 hover:bg-red-700 text-white py-2.5 px-5 rounded-md transition-all font-medium text-sm shadow-sm hover:shadow-md active:translate-y-0.5 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+              Delete
+            </button>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-semibold font-cormorant mb-4">Text & Outline Buttons</h3>
+          <div class="flex flex-wrap gap-4">
+            <button class="text-wine-600 hover:text-wine-800 font-medium text-sm">
+              Text Button
+            </button>
+            <button class="border border-wine-600 text-wine-600 hover:bg-wine-50 py-2.5 px-5 rounded-md transition-colors font-medium text-sm">
+              Outline Button
+            </button>
+            <button class="border border-gray-300 text-gray-700 hover:bg-gray-50 py-2.5 px-5 rounded-md transition-colors font-medium text-sm">
+              Gray Outline
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cards -->
+    <section class="mb-16" id="cards">
+      <h2 class="text-3xl font-bold font-cormorant text-wine-800 mb-6 pb-2 border-b border-gray-200">Cards</h2>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Basic Card -->
+        <div class="card">
+          <h3 class="text-xl font-bold font-playfair mb-2">Basic Card</h3>
+          <p class="text-gray-600 mb-4">A simple card with some text content and a clean design.</p>
+          <button class="btn-primary w-full">
+            Card Action
+          </button>
+        </div>
+        
+        <!-- Card with Header -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="text-xl font-bold font-playfair">Card with Header</h3>
+          </div>
+          <p class="text-gray-600 mb-4">This card has a header section separated by a subtle border.</p>
+          <div class="flex justify-between">
+            <button class="btn-secondary">
+              Cancel
+            </button>
+            <button class="btn-primary">
+              Confirm
+            </button>
+          </div>
+        </div>
+        
+        <!-- Wine Card -->
+        <div class="card hover:border-wine-300 transition-colors">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <h3 class="text-xl font-bold font-cormorant italic text-wine-800">Château Margaux 2015</h3>
+              <p class="text-sm font-outfit text-gray-600">Bordeaux, France</p>
+            </div>
+            <span class="bg-wine-100 text-wine-800 text-xs px-2 py-1 rounded-full font-medium">Red</span>
+          </div>
+          
+          <div class="flex mb-4">
+            <span class="rating-star-filled">★</span>
+            <span class="rating-star-filled">★</span>
+            <span class="rating-star-filled">★</span>
+            <span class="rating-star-filled">★</span>
+            <span class="rating-star-empty">★</span>
+            <span class="ml-2 text-gray-700 font-medium">4.2</span>
+          </div>
+          
+          <div class="space-y-2 mb-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600">Aroma</span>
+                <span class="font-medium">4.5</span>
+              </div>
+              <div class="bg-gray-200 h-2 rounded-full overflow-hidden">
+                <div class="bg-wine-600 h-2 rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600">Taste</span>
+                <span class="font-medium">4.0</span>
+              </div>
+              <div class="bg-gray-200 h-2 rounded-full overflow-hidden">
+                <div class="bg-wine-600 h-2 rounded-full" style="width: 80%"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex justify-between">
+            <button class="btn-secondary py-2 px-3 text-xs">
+              View Details
+            </button>
+            <button class="btn-primary py-2 px-3 text-xs">
+              Add Rating
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Forms -->
+    <section class="mb-16" id="forms">
+      <h2 class="text-3xl font-bold font-cormorant text-wine-800 mb-6 pb-2 border-b border-gray-200">Form Elements</h2>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xl font-semibold font-cormorant mb-4">Inputs</h3>
+          
+          <div class="space-y-4 max-w-md">
+            <!-- Text Input -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2" for="text-input">Text Input</label>
+              <input 
+                type="text" 
+                id="text-input"
+                class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-wine-600 focus:border-transparent text-base bg-white shadow-sm"
+                placeholder="Enter some text"
+              >
+            </div>
+            
+            <!-- Input with Error -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2" for="error-input">Input with Error</label>
+              <input 
+                type="text" 
+                id="error-input"
+                class="w-full px-4 py-3 border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-base bg-white shadow-sm"
+                placeholder="Invalid input"
+              >
+              <p class="text-red-600 text-sm mt-1 font-medium">This field is required</p>
+            </div>
+            
+            <!-- Textarea -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2" for="textarea">Textarea</label>
+              <textarea 
+                id="textarea"
+                class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-wine-600 focus:border-transparent text-base bg-white shadow-sm"
+                placeholder="Enter multiple lines of text"
+                rows="4"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-semibold font-cormorant mb-4">Select & Checkboxes</h3>
+          
+          <div class="space-y-4 max-w-md">
+            <!-- Select -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2" for="select">Select Input</label>
+              <select 
+                id="select"
+                class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-wine-600 focus:border-transparent text-base bg-white shadow-sm"
+              >
+                <option value="" disabled selected>Select an option</option>
+                <option value="red">Red Wine</option>
+                <option value="white">White Wine</option>
+                <option value="rose">Rosé Wine</option>
+                <option value="sparkling">Sparkling Wine</option>
+              </select>
+            </div>
+            
+            <!-- Checkbox -->
+            <div class="space-y-2">
+              <label class="block text-sm font-medium text-gray-700 mb-2">Checkboxes</label>
+              
+              <div class="flex items-center">
+                <input 
+                  type="checkbox" 
+                  id="checkbox-1"
+                  class="h-4 w-4 text-wine-600 focus:ring-wine-500 border-gray-300 rounded"
+                >
+                <label for="checkbox-1" class="ml-2 block text-sm text-gray-700">
+                  Option 1
+                </label>
+              </div>
+              
+              <div class="flex items-center">
+                <input 
+                  type="checkbox" 
+                  id="checkbox-2"
+                  class="h-4 w-4 text-wine-600 focus:ring-wine-500 border-gray-300 rounded"
+                  checked
+                >
+                <label for="checkbox-2" class="ml-2 block text-sm text-gray-700">
+                  Option 2 (checked)
+                </label>
+              </div>
+            </div>
+            
+            <!-- Radio Buttons -->
+            <div class="space-y-2">
+              <label class="block text-sm font-medium text-gray-700 mb-2">Radio Buttons</label>
+              
+              <div class="flex items-center">
+                <input 
+                  type="radio" 
+                  id="radio-1"
+                  name="radio-group"
+                  class="h-4 w-4 text-wine-600 focus:ring-wine-500 border-gray-300"
+                >
+                <label for="radio-1" class="ml-2 block text-sm text-gray-700">
+                  Option A
+                </label>
+              </div>
+              
+              <div class="flex items-center">
+                <input 
+                  type="radio" 
+                  id="radio-2"
+                  name="radio-group"
+                  class="h-4 w-4 text-wine-600 focus:ring-wine-500 border-gray-300"
+                  checked
+                >
+                <label for="radio-2" class="ml-2 block text-sm text-gray-700">
+                  Option B (selected)
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ratings -->
+    <section class="mb-16" id="ratings">
+      <h2 class="text-3xl font-bold font-cormorant text-wine-800 mb-6 pb-2 border-b border-gray-200">Ratings & Indicators</h2>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xl font-semibold font-cormorant mb-4">Star Ratings</h3>
+          
+          <div class="space-y-4">
+            <div>
+              <div class="flex items-center mb-1">
+                <div class="flex">
+                  <span class="rating-star-filled">★</span>
+                  <span class="rating-star-filled">★</span>
+                  <span class="rating-star-filled">★</span>
+                  <span class="rating-star-filled">★</span>
+                  <span class="rating-star-filled">★</span>
+                </div>
+                <span class="ml-2 text-sm text-gray-700">5.0 (Perfect)</span>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex items-center mb-1">
+                <div class="flex">
+                  <span class="rating-star-filled">★</span>
+                  <span class="rating-star-filled">★</span>
+                  <span class="rating-star-filled">★</span>
+                  <span class="rating-star-filled">★</span>
+                  <span class="rating-star-empty">★</span>
+                </div>
+                <span class="ml-2 text-sm text-gray-700">4.0 (Great)</span>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex items-center mb-1">
+                <div class="flex">
+                  <span class="rating-star-filled">★</span>
+                  <span class="rating-star-filled">★</span>
+                  <span class="rating-star-filled">★</span>
+                  <span class="rating-star-empty">★</span>
+                  <span class="rating-star-empty">★</span>
+                </div>
+                <span class="ml-2 text-sm text-gray-700">3.0 (Good)</span>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex items-center mb-1">
+                <div class="flex">
+                  <span class="rating-star-filled">★</span>
+                  <span class="rating-star-filled">★</span>
+                  <span class="rating-star-empty">★</span>
+                  <span class="rating-star-empty">★</span>
+                  <span class="rating-star-empty">★</span>
+                </div>
+                <span class="ml-2 text-sm text-gray-700">2.0 (Fair)</span>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex items-center mb-1">
+                <div class="flex">
+                  <span class="rating-star-filled">★</span>
+                  <span class="rating-star-empty">★</span>
+                  <span class="rating-star-empty">★</span>
+                  <span class="rating-star-empty">★</span>
+                  <span class="rating-star-empty">★</span>
+                </div>
+                <span class="ml-2 text-sm text-gray-700">1.0 (Poor)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-semibold font-cormorant mb-4">Progress Bars</h3>
+          
+          <div class="space-y-4 max-w-md">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600">Aroma</span>
+                <span class="font-medium">4.8</span>
+              </div>
+              <div class="bg-gray-200 h-2 rounded-full overflow-hidden">
+                <div class="bg-wine-600 h-2 rounded-full" style="width: 96%"></div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600">Taste</span>
+                <span class="font-medium">4.2</span>
+              </div>
+              <div class="bg-gray-200 h-2 rounded-full overflow-hidden">
+                <div class="bg-wine-600 h-2 rounded-full" style="width: 84%"></div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600">Balance</span>
+                <span class="font-medium">3.5</span>
+              </div>
+              <div class="bg-gray-200 h-2 rounded-full overflow-hidden">
+                <div class="bg-wine-600 h-2 rounded-full" style="width: 70%"></div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600">Finish</span>
+                <span class="font-medium">3.9</span>
+              </div>
+              <div class="bg-gray-200 h-2 rounded-full overflow-hidden">
+                <div class="bg-wine-600 h-2 rounded-full" style="width: 78%"></div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600">Value</span>
+                <span class="font-medium">4.0</span>
+              </div>
+              <div class="bg-gray-200 h-2 rounded-full overflow-hidden">
+                <div class="bg-wine-600 h-2 rounded-full" style="width: 80%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Badges & Tags -->
+    <section class="mb-16" id="badges">
+      <h2 class="text-3xl font-bold font-cormorant text-wine-800 mb-6 pb-2 border-b border-gray-200">Badges & Tags</h2>
+      
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-xl font-semibold font-cormorant mb-4">Wine Type Badges</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-wine-100 text-wine-800 text-xs px-2 py-1 rounded-full font-medium">Red</span>
+            <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full font-medium">White</span>
+            <span class="bg-pink-100 text-pink-800 text-xs px-2 py-1 rounded-full font-medium">Rosé</span>
+            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full font-medium">Sparkling</span>
+            <span class="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded-full font-medium">Dessert</span>
+            <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full font-medium">Fortified</span>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-semibold font-cormorant mb-4">Status Badges</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium">Active</span>
+            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-medium">New</span>
+            <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full font-medium">Pending</span>
+            <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full font-medium">Sold Out</span>
+            <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full font-medium">Featured</span>
+            <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full font-medium">Archived</span>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-semibold font-cormorant mb-4">Region Tags</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="border border-gray-300 text-gray-700 text-sm px-3 py-1 rounded-md">France</span>
+            <span class="border border-gray-300 text-gray-700 text-sm px-3 py-1 rounded-md">Italy</span>
+            <span class="border border-gray-300 text-gray-700 text-sm px-3 py-1 rounded-md">Spain</span>
+            <span class="border border-gray-300 text-gray-700 text-sm px-3 py-1 rounded-md">California</span>
+            <span class="border border-gray-300 text-gray-700 text-sm px-3 py-1 rounded-md">Australia</span>
+            <span class="border border-gray-300 text-gray-700 text-sm px-3 py-1 rounded-md">New Zealand</span>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-semibold font-cormorant mb-4">Numeric Badges</h3>
+          <div class="flex flex-wrap gap-4 items-center">
+            <div class="relative">
+              <button class="btn-secondary">
+                Notifications
+              </button>
+              <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">3</span>
+            </div>
+            
+            <div class="relative">
+              <button class="btn-secondary">
+                Messages
+              </button>
+              <span class="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">7</span>
+            </div>
+            
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-wine-100 text-wine-800">
+              4.8
+              <svg class="ml-1 h-3 w-3 text-wine-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 15.585l-7.07-7.07 1.415-1.414L10 12.757l5.657-5.657 1.414 1.415L10 15.585z" clip-rule="evenodd" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Wine Collection Example -->
+    <section class="mb-16" id="collection-example">
+      <h2 class="text-3xl font-bold font-cormorant text-wine-800 mb-6 pb-2 border-b border-gray-200">Wine Collection Example</h2>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Wine Card 1 -->
+        <div class="card hover:border-wine-300 transition-colors">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <h3 class="text-xl font-bold font-cormorant italic text-wine-800">Château Margaux 2015</h3>
+              <p class="text-sm font-outfit text-gray-600">Bordeaux, France</p>
+            </div>
+            <span class="bg-wine-100 text-wine-800 text-xs px-2 py-1 rounded-full font-medium">Red</span>
+          </div>
+          
+          <div class="flex mb-4">
+            <span class="rating-star-filled">★</span>
+            <span class="rating-star-filled">★</span>
+            <span class="rating-star-filled">★</span>
+            <span class="rating-star-filled">★</span>
+            <span class="rating-star-empty">★</span>
+            <span class="ml-2 text-gray-700 font-medium">4.2</span>
+          </div>
+          
+          <div class="space-y-2 mb-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600">Aroma</span>
+                <span class="font-medium">4.5</span>
+              </div>
+              <div class="bg-gray-200 h-2 rounded-full overflow-hidden">
+                <div class="bg-wine-600 h-2 rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600">Taste</span>
+                <span class="font-medium">4.0</span>
+              </div>
+              <div class="bg-gray-200 h-2 rounded-full overflow-hidden">
+                <div class="bg-wine-600 h-2 rounded-full" style="width: 80%"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex justify-between">
+            <button class="btn-secondary py-2 px-3 text-xs">
+              View Details
+            </button>
+            <button class="btn-primary py-2 px-3 text-xs">
+              Add Rating
+            </button>
+          </div>
+        </div>
+        
+        <!-- Wine Card 2 -->
+        <div class="card hover:border-wine-300 transition-colors">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <h3 class="text-xl font-bold font-cormorant italic text-wine-800">Cloudy Bay Sauvignon Blanc 2020</h3>
+              <p class="text-sm font-outfit text-gray-600">Marlborough, New Zealand</p>
+            </div>
+            <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full font-medium">White</span>
+          </div>
+          
+          <div class="flex mb-4">
+            <span class="rating-star-filled">★</span>
+            <span class="rating-star-filled">★</span>
+            <span class="rating-star-filled">★</span>
+            <span class="rating-star-filled">★</span>
+            <span class="rating-star-half">★</span>
+            <span class="ml-2 text-gray-700 font-medium">4.5</span>
+          </div>
+          
+          <div class="space-y-2 mb-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600">Aroma</span>
+                <span class="font-medium">4.8</span>
+              </div>
+              <div class="bg-gray-200 h-2 rounded-full overflow-hidden">
+                <div class="bg-wine-600 h-2 rounded-full" style="width: 96%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600">Taste</span>
+                <span class="font-medium">4.6</span>
+              </div>
+              <div class="bg-gray-200 h-2 rounded-full overflow-hidden">
+                <div class="bg-wine-600 h-2 rounded-full" style="width: 92%"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex justify-between">
+            <button class="btn-secondary py-2 px-3 text-xs">
+              View Details
+            </button>
+            <button class="btn-primary py-2 px-3 text-xs">
+              Add Rating
+            </button>
+          </div>
+        </div>
+        
+        <!-- Wine Card 3 -->
+        <div class="card hover:border-wine-300 transition-colors">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <h3 class="text-xl font-bold font-cormorant italic text-wine-800">Dom Pérignon 2010</h3>
+              <p class="text-sm font-outfit text-gray-600">Champagne, France</p>
+            </div>
+            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full font-medium">Sparkling</span>
+          </div>
+          
+          <div class="flex mb-4">
+            <span class="rating-star-filled">★</span>
+            <span class="rating-star-filled">★</span>
+            <span class="rating-star-filled">★</span>
+            <span class="rating-star-filled">★</span>
+            <span class="rating-star-filled">★</span>
+            <span class="ml-2 text-gray-700 font-medium">5.0</span>
+          </div>
+          
+          <div class="space-y-2 mb-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600">Aroma</span>
+                <span class="font-medium">5.0</span>
+              </div>
+              <div class="bg-gray-200 h-2 rounded-full overflow-hidden">
+                <div class="bg-wine-600 h-2 rounded-full" style="width: 100%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600">Taste</span>
+                <span class="font-medium">5.0</span>
+              </div>
+              <div class="bg-gray-200 h-2 rounded-full overflow-hidden">
+                <div class="bg-wine-600 h-2 rounded-full" style="width: 100%"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex justify-between">
+            <button class="btn-secondary py-2 px-3 text-xs">
+              View Details
+            </button>
+            <button class="btn-primary py-2 px-3 text-xs">
+              Add Rating
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

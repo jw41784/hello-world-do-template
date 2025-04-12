@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wine Rater - Track and Rate Your Wines</title>
+    <meta name="description" content="Track and rate your wine experiences with detailed ratings, notes, and collaborative tastings." />
+    <!-- Language settings -->
+    <meta http-equiv="Content-Language" content="en" />
+    <!-- Clear cache meta tags -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <!-- Force-reload fonts with cache-busting version parameter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Outfit:wght@300;400;500;600;700&display=swap&v=1744461244706" rel="stylesheet">
+    <!-- External stylesheet with cache-busting parameter -->
+    <link rel="stylesheet" href="/custom-styles.css?v=1744461244706" />
+    <!-- Add inline styles to force font usage with more aggressive !important rules -->
+    <style>
+      body {
+        font-family: 'Outfit', sans-serif !important;
+        background-color: #fefcfa !important;
+        color: #292524 !important;
+        letter-spacing: 0.01em !important;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Cormorant Garamond', serif !important;
+        letter-spacing: 0.01em !important;
+      }
+      /* Ensure buttons have animation */
+      .btn-primary, .btn-secondary, .btn-danger {
+        transition-property: all !important;
+        transition-duration: 300ms !important;
+        border-radius: 0.5rem !important;
+      }
+      .btn-primary:hover, .btn-secondary:hover, .btn-danger:hover {
+        transform: scale(1.03) !important;
+      }
+      /* Ensure cards have animation */
+      .card {
+        transition-property: all !important;
+        transition-duration: 300ms !important;
+        border-radius: 0.75rem !important;
+      }
+      .card:hover {
+        transform: scale(1.01) !important;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+      }
+      /* Ensure rating stars have animation */
+      .rating-star {
+        font-size: 1.25rem !important;
+        transition: all 200ms !important;
+      }
+      .rating-star:hover {
+        transform: scale(1.1) rotate(12deg) !important;
+      }
+      /* Force color classes to be applied */
+      .text-wine-600 {
+        color: #b84457 !important;
+      }
+      .bg-wine-600 {
+        background-color: #b84457 !important;
+      }
+      .hover\:bg-wine-700:hover {
+        background-color: #9c3345 !important;
+      }
+      .hover\:text-wine-800:hover {
+        color: #7a2937 !important;
+      }
+    </style>
+    <!-- Language detection and fonts script -->
+    <script>
+      // Execute immediately to ensure fonts are loaded and language is set
+      (function() {
+        // Create a unique version identifier to bust cache
+        const version = new Date().getTime();
+        
+        // Force set English language
+        if (document.documentElement.lang !== 'en') {
+          document.documentElement.lang = 'en';
+        }
+        
+        // Check if browser language differs from document language
+        const browserLang = navigator.language || navigator.userLanguage;
+        console.log("Browser language:", browserLang);
+        console.log("Document language:", document.documentElement.lang);
+        
+        // Function to apply fonts and ensure English UI
+        function applyFonts() {
+          document.body.style.fontFamily = "'Outfit', sans-serif";
+          document.body.style.backgroundColor = "#fefcfa";
+          document.body.style.color = "#292524";
+          
+          // Apply to all headings
+          const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+          headings.forEach(heading => {
+            heading.style.fontFamily = "'Cormorant Garamond', serif";
+          });
+          
+          // Set HTML lang attribute again to force language
+          document.documentElement.lang = 'en';
+          
+          // Add Content-Language meta tag if not present
+          if (!document.querySelector('meta[http-equiv="Content-Language"]')) {
+            const langMeta = document.createElement('meta');
+            langMeta.setAttribute('http-equiv', 'Content-Language');
+            langMeta.setAttribute('content', 'en');
+            document.head.appendChild(langMeta);
+          }
+          
+          console.log("Fonts and language applied with version:", version);
+        }
+        
+        // Apply fonts immediately
+        applyFonts();
+        
+        // Set up a MutationObserver to apply fonts to dynamically added elements
+        const observer = new MutationObserver(function(mutations) {
+          applyFonts();
+        });
+        
+        // Watch for DOM changes
+        if (document.body) {
+          observer.observe(document.body, { childList: true, subtree: true });
+        } else {
+          document.addEventListener('DOMContentLoaded', function() {
+            observer.observe(document.body, { childList: true, subtree: true });
+          });
+        }
+        
+        // Apply fonts again after window loads
+        window.addEventListener('load', applyFonts);
+        
+        // Force reload custom stylesheet every 2 seconds for first 10 seconds
+        // This is an extreme measure to ensure the styles are applied
+        let attempts = 0;
+        const maxAttempts = 5;
+        const interval = setInterval(() => {
+          if (attempts >= maxAttempts) {
+            clearInterval(interval);
+            return;
+          }
+          
+          // Remove existing stylesheet
+          const existingLink = document.querySelector('link[href^="/custom-styles.css"]');
+          if (existingLink) {
+            existingLink.remove();
+          }
+          
+          // Add new stylesheet with unique version
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = `/custom-styles.css?v=${new Date().getTime()}`;
+          document.head.appendChild(link);
+          
+          attempts++;
+        }, 2000);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx?v=1744461244706"></script>
+  </body>
+</html>

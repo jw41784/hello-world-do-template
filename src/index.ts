@@ -1,66 +1,80 @@
-import { DurableObject } from "cloudflare:workers";
+import { handleUserRequest } from './api/userRoutes';
+import { handleSessionRequest } from './api/sessionRoutes';
+import { handleCors, addCorsHeaders } from './utils/cors';
+import { generateHomePage, generateApiDocs } from './utils/staticPages';
 
 /**
- * Welcome to Cloudflare Workers! This is your first Durable Objects application.
- *
- * - Run `npm run dev` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your Durable Object in action
- * - Run `npm run deploy` to publish your application
- *
- * Bind resources to your worker in `wrangler.jsonc`. After adding bindings, a type definition for the
- * `Env` object can be regenerated with `npm run cf-typegen`.
- *
- * Learn more at https://developers.cloudflare.com/durable-objects
+ * Wine Rater - A Durable Objects Application
+ * 
+ * This application allows users to:
+ * - Store and manage their wine collection
+ * - Rate wines based on multiple criteria
+ * - Participate in collaborative tasting sessions
  */
 
-/** A Durable Object's behavior is defined in an exported Javascript class */
-export class MyDurableObject extends DurableObject<Env> {
-  /**
-   * The constructor is invoked once upon creation of the Durable Object, i.e. the first call to
-   * 	`DurableObjectStub::get` for a given identifier (no-op constructors can be omitted)
-   *
-   * @param ctx - The interface for interacting with Durable Object state
-   * @param env - The interface to reference bindings declared in wrangler.jsonc
-   */
-  constructor(ctx: DurableObjectState, env: Env) {
-    super(ctx, env);
-  }
-
-  /**
-   * The Durable Object exposes an RPC method sayHello which will be invoked when when a Durable
-   *  Object instance receives a request from a Worker via the same method invocation on the stub
-   *
-   * @param name - The name provided to a Durable Object instance from a Worker
-   * @returns The greeting to be sent back to the Worker
-   */
-  async sayHello(name: string): Promise<string> {
-    return `Hello, ${name}!`;
-  }
-}
+// Re-export the Durable Objects
+export { UserObject } from './durable_objects/UserObject';
+export { SessionObject } from './durable_objects/SessionObject';
 
 export default {
   /**
-   * This is the standard fetch handler for a Cloudflare Worker
-   *
-   * @param request - The request submitted to the Worker from the client
-   * @param env - The interface to reference bindings declared in wrangler.jsonc
-   * @param ctx - The execution context of the Worker
-   * @returns The response to be sent back to the client
+   * Main fetch handler for the Wine Rater application
    */
-  async fetch(request, env, ctx): Promise<Response> {
-    // Create a `DurableObjectId` for an instance of the `MyDurableObject`
-    // class named "foo". Requests from all Workers to the instance named
-    // "foo" will go to a single globally unique Durable Object instance.
-    const id: DurableObjectId = env.MY_DURABLE_OBJECT.idFromName("foo");
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    // Handle CORS preflight requests
+    if (request.method === "OPTIONS") {
+      return handleCors(request);
+    }
 
-    // Create a stub to open a communication channel with the Durable
-    // Object instance.
-    const stub = env.MY_DURABLE_OBJECT.get(id);
+    const url = new URL(request.url);
+    const path = url.pathname;
 
-    // Call the `sayHello()` RPC method on the stub to invoke the method on
-    // the remote Durable Object instance
-    const greeting = await stub.sayHello("world");
+    // Serve static files (if we added static assets)
+    if (path.startsWith('/assets/')) {
+      // This would be handled by Cloudflare Pages or Workers Sites
+      return addCorsHeaders(new Response('Static asset would be served here', { status: 200 }));
+    }
 
-    return new Response(greeting);
+    // User routes
+    if (path.startsWith('/api/users')) {
+      const response = await handleUserRequest(request, url, env);
+      return addCorsHeaders(response);
+    }
+
+    // Session routes
+    if (path.startsWith('/api/sessions')) {
+      const response = await handleSessionRequest(request, url, env);
+      
+      // Only add CORS headers for HTTP requests, not WebSocket upgrades
+      if (response.headers.get('Upgrade') !== 'websocket') {
+        return addCorsHeaders(response);
+      }
+      return response;
+    }
+
+    // Home page or SPA
+    if (path === '/' || path === '/index.html') {
+      const html = generateHomePage();
+      
+      return addCorsHeaders(new Response(html, {
+        headers: {
+          'Content-Type': 'text/html'
+        }
+      }));
+    }
+
+    // API documentation
+    if (path === '/api' || path === '/api/docs') {
+      const apiInfo = generateApiDocs();
+      
+      return addCorsHeaders(new Response(JSON.stringify(apiInfo, null, 2), {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }));
+    }
+
+    // If no routes match, return 404
+    return addCorsHeaders(new Response('Not Found', { status: 404 }));
   },
 } satisfies ExportedHandler<Env>;

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <title>Wine Rater - Language Settings</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #fefcfa;
+            color: #292524;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+        }
+        h1 {
+            color: #b84457;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(184, 68, 87, 0.2);
+            padding-bottom: 0.5rem;
+            font-style: italic;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            margin-top: 2rem;
+        }
+        .btn {
+            background-color: #b84457;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            margin-top: 1rem;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #9c3345;
+            transform: scale(1.03);
+        }
+        .status {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #f3f4f6;
+            border-radius: 0.5rem;
+        }
+        .language-info {
+            font-weight: 500;
+        }
+        .status-box {
+            background-color: #f9fafb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        .language-option {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            background-color: #f3f4f6;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .language-option:hover {
+            background-color: #e5e7eb;
+        }
+        .language-option.active {
+            background-color: #b84457;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wine Rater - Language Settings</h1>
+    
+    <div class="container">
+        <p>This page will help you configure the language settings for the Wine Rater application.</p>
+        
+        <h2>Current Language Settings</h2>
+        <div class="status">
+            <p class="language-info">Browser language: <span id="browserLang"></span></p>
+            <p class="language-info">Document language: <span id="documentLang"></span></p>
+            <p class="language-info">Preferred language: <span id="preferredLang"></span></p>
+        </div>
+        
+        <h2>Select Language</h2>
+        <div id="languageOptions">
+            <div class="language-option active" data-lang="en">English</div>
+            <div class="language-option" data-lang="fr">Français</div>
+            <div class="language-option" data-lang="es">Español</div>
+            <div class="language-option" data-lang="de">Deutsch</div>
+            <div class="language-option" data-lang="it">Italiano</div>
+        </div>
+        
+        <h2>Force English UI</h2>
+        <p>If the site is displaying in a different language, click the button below to force English:</p>
+        <button class="btn" id="forceEnglishBtn">Force English UI</button>
+        
+        <h2>Technical Information</h2>
+        <div class="status-box" id="techInfo">
+Loading...
+        </div>
+        
+        <div style="margin-top: 2rem;">
+            <a href="/" class="btn" id="returnBtn">Return to App</a>
+            <a href="/cache-clear.html" class="btn" style="background-color: #6b7280; margin-left: 10px;">Clear Cache</a>
+        </div>
+    </div>
+    
+    <script>
+        // Get language information
+        const browserLang = navigator.language || navigator.userLanguage;
+        const documentLang = document.documentElement.lang;
+        const preferredLang = localStorage.getItem('preferred_language') || 'en';
+        
+        // Display language information
+        document.getElementById('browserLang').textContent = browserLang;
+        document.getElementById('documentLang').textContent = documentLang;
+        document.getElementById('preferredLang').textContent = preferredLang;
+        
+        // Handle language selection
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                
+                // Update active class
+                document.querySelectorAll('.language-option').forEach(opt => {
+                    opt.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Save preference
+                localStorage.setItem('preferred_language', lang);
+                document.getElementById('preferredLang').textContent = lang;
+                
+                // Set the language
+                document.documentElement.lang = lang;
+                
+                // Update meta tag
+                let langMeta = document.querySelector('meta[http-equiv="Content-Language"]');
+                if (!langMeta) {
+                    langMeta = document.createElement('meta');
+                    langMeta.setAttribute('http-equiv', 'Content-Language');
+                    document.head.appendChild(langMeta);
+                }
+                langMeta.setAttribute('content', lang);
+                
+                // Add URL parameter to main app
+                document.getElementById('returnBtn').href = '/?lang=' + lang;
+                
+                updateTechInfo();
+            });
+        });
+        
+        // Handle force English button
+        document.getElementById('forceEnglishBtn').addEventListener('click', function() {
+            // Set English as preferred language
+            localStorage.setItem('preferred_language', 'en');
+            document.getElementById('preferredLang').textContent = 'en';
+            
+            // Set the language
+            document.documentElement.lang = 'en';
+            
+            // Update meta tag
+            let langMeta = document.querySelector('meta[http-equiv="Content-Language"]');
+            if (!langMeta) {
+                langMeta = document.createElement('meta');
+                langMeta.setAttribute('http-equiv', 'Content-Language');
+                document.head.appendChild(langMeta);
+            }
+            langMeta.setAttribute('content', 'en');
+            
+            // Add cookie
+            document.cookie = "lang=en; path=/; max-age=31536000";
+            
+            // Force English on the main app
+            document.getElementById('returnBtn').href = '/?lang=en&force=true';
+            
+            // Update active language option
+            document.querySelectorAll('.language-option').forEach(opt => {
+                opt.classList.remove('active');
+                if (opt.getAttribute('data-lang') === 'en') {
+                    opt.classList.add('active');
+                }
+            });
+            
+            updateTechInfo();
+            
+            alert('Language set to English. Click "Return to App" to apply changes.');
+        });
+        
+        // Update technical information
+        function updateTechInfo() {
+            const info = {
+                'Navigator Language': navigator.language,
+                'Languages': navigator.languages ? JSON.stringify(navigator.languages) : 'Not available',
+                'Document Language': document.documentElement.lang,
+                'Stored Preference': localStorage.getItem('preferred_language'),
+                'Language Cookie': document.cookie.match(/lang=([^;]+)/) ? document.cookie.match(/lang=([^;]+)/)[1] : 'Not set',
+                'Language Meta Tag': document.querySelector('meta[http-equiv="Content-Language"]')?.getAttribute('content') || 'Not set',
+                'Return URL': document.getElementById('returnBtn').href
+            };
+            
+            document.getElementById('techInfo').textContent = Object.entries(info)
+                .map(([key, value]) => `${key}: ${value}`)
+                .join('\n');
+        }
+        
+        // Initial update
+        updateTechInfo();
+        
+        // Set return URL
+        document.getElementById('returnBtn').href = '/?lang=' + preferredLang;
+    </script>
+</body>
+</html>

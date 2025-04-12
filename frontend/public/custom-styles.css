@@ -1,0 +1,153 @@
+/* Wine Rater Custom Styles - Version updated for cache-busting */
+/* This file is intentionally separate from the main bundled CSS to ensure styles are applied */
+
+body {
+  font-family: 'Outfit', sans-serif !important;
+  background-color: #fefcfa !important;
+  color: #292524 !important;
+  letter-spacing: 0.01em !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cormorant Garamond', serif !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* Wine theme colors */
+.text-wine-600 {
+  color: #b84457 !important;
+}
+
+.bg-wine-600 {
+  background-color: #b84457 !important;
+}
+
+.hover\:bg-wine-700:hover {
+  background-color: #9c3345 !important;
+}
+
+.hover\:text-wine-800:hover {
+  color: #7a2937 !important;
+}
+
+/* Button styles */
+.btn-primary {
+  background-color: #b84457 !important;
+  color: white !important;
+  padding: 0.625rem 1.5rem !important;
+  border-radius: 0.5rem !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  transition: all 300ms !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.btn-primary:hover {
+  background-color: #9c3345 !important;
+  transform: scale(1.03) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.btn-secondary {
+  background-color: #f3f4f6 !important;
+  color: #1f2937 !important;
+  padding: 0.625rem 1.5rem !important;
+  border-radius: 0.5rem !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  transition: all 300ms !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.btn-secondary:hover {
+  background-color: #e5e7eb !important;
+  transform: scale(1.02) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.btn-danger {
+  background-color: #dc2626 !important;
+  color: white !important;
+  padding: 0.625rem 1.5rem !important;
+  border-radius: 0.5rem !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  transition: all 300ms !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.btn-danger:hover {
+  background-color: #b91c1c !important;
+  transform: scale(1.02) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Card styles */
+.card {
+  background-color: white !important;
+  border-radius: 0.75rem !important;
+  border: 1px solid #f3f4f6 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  padding: 1.5rem !important;
+  transition: all 300ms !important;
+}
+
+.card:hover {
+  transform: scale(1.01) !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Rating stars styles */
+.rating-star {
+  font-size: 1.25rem !important;
+  transition: all 200ms !important;
+}
+
+.rating-star:hover {
+  transform: scale(1.1) rotate(12deg) !important;
+}
+
+.rating-star-filled {
+  color: #f59e0b !important;
+}
+
+.rating-star-empty {
+  color: #d1d5db !important;
+}
+
+/* Page title */
+.page-title {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 2.25rem !important;
+  font-weight: 700 !important;
+  font-style: italic !important;
+  color: #1f2937 !important;
+  margin-bottom: 0.75rem !important;
+}
+
+/* Navigation link */
+.nav-link {
+  display: flex !important;
+  align-items: center !important;
+  color: #b84457 !important;
+  font-weight: 500 !important;
+  transition: all 200ms !important;
+}
+
+.nav-link:hover {
+  color: #7a2937 !important;
+  transform: scale(1.02) !important;
+}
